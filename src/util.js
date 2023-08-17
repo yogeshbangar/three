@@ -1,4 +1,8 @@
 import { Vector3 } from "three";
+export const MODE = {
+  brush: "MODE_BRUSH",
+  polygon: "MODE_POLYGON",
+};
 export const angle = (n) => {
   const inc = n || 1;
   for (let i = 0; i < 360; i += inc) {
