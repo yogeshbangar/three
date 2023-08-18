@@ -2,6 +2,7 @@ import { Vector3 } from "three";
 export const MODE = {
   brush: "MODE_BRUSH",
   polygon: "MODE_POLYGON",
+  pointBrush: "MODE_POINT_BRUSH",
 };
 export const angle = (n) => {
   const inc = n || 1;

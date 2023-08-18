@@ -7,11 +7,11 @@
       body {
         margin: 0;
       }
-      .menu{
+      .menu {
         position: fixed;
         background-color: white;
       }
-      .list-button{
+      .list-button {
         padding: 10px;
         margin: 10px;
       }
@@ -27,7 +27,8 @@
       {
         "imports": {
           "three": "https://unpkg.com/three/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three/examples/jsm/"
+          "three/addons/": "https://unpkg.com/three/examples/jsm/",
+          "three-mesh-bvh": "https://unpkg.com/three-mesh-bvh@0.6.3/build/index.module.js"
         }
       }
     </script>
@@ -37,8 +38,18 @@
       <ul class="list-button" id="menu-list">
         <li id="polygon">Polygon View</li>
         <li id="brush">Brush</li>
-        <li><input type="range" min="1" max="100" value="50" class="slider" id="pointSize"></li>
-      </ul>  
+        <li id="point-brush">Point Brush</li>
+        <li>
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value="50"
+            class="slider"
+            id="pointSize"
+          />
+        </li>
+      </ul>
     </div>
   </body>
 </html>

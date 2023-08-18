@@ -3,10 +3,11 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import Polygon from "./polygon.js";
 import PCDViewer from "./pcdViewer.js";
 import Brush from "./brush.js";
+import PointBrush from "./pointBrush.js";
 import UI from "./ui.js";
 import { MODE } from "./util.js";
 const uvGridUrl = "../assets/uv_grid_directx.jpg";
-let mode = MODE.brush;
+let mode = MODE.pointBrush;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -62,10 +63,18 @@ const setMode = (val) => {
 
 const polygon = new Polygon(scene, camera, orbitControls);
 const brush = new Brush(scene, camera, renderer);
-new UI(setMode.bind(this),mode);
-new PCDViewer(scene);
+new UI(setMode.bind(this), mode);
+const pcdViewer = new PCDViewer(scene);
+const pointBrush = new PointBrush(scene, camera, pcdViewer);
 function touchEvent(event, type) {
-  if (mode === MODE.polygon) polygon.touchEvent(event, type);
+  switch (mode) {
+    case MODE.polygon:
+      polygon.touchEvent(event, type);
+      break;
+    case MODE.pointBrush:
+      pointBrush.touchEvent(event, type);
+      break;
+  }
 }
 
 function dealWithKeyboard(event, type) {
@@ -76,5 +85,5 @@ function dealWithKeyboard(event, type) {
   if (event.keyCode === 32) {
     orbitControls.enableRotate = event.type === "keydown";
   }
-  brush.dealWithKeyboard(event);
+  brush?.dealWithKeyboard(event);
 }

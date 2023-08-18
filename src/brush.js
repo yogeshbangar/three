@@ -34,7 +34,7 @@ export default class Brush {
     );
     this.scene.add(this.cubeBrush);
     this.scene.add(this.paintObject);
-    this.transformControls.attach(this.cubeBrush);
+    // this.transformControls.attach(this.cubeBrush);
     this.transformControls.addEventListener(
       "dragging-changed",
       this.draggingChanged_.bind(this)
