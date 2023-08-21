@@ -17,6 +17,7 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 camera.position.set(0, 50, 50);
+camera.up.set(0, 0, 1)
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -34,8 +35,9 @@ const cube = new THREE.Mesh(bGeometry, material);
 scene.add(cube);
 cube.position.z = 0;
 cube.visible = false;
-scene.add(new THREE.GridHelper(100, 100, 0x888888, 0x444444));
-
+const gridHelper = new THREE.GridHelper(100, 100, 0x888888, 0x444444);
+scene.add(gridHelper);
+gridHelper.visible = false;
 const orbitControls = new OrbitControls(camera, renderer.domElement);
 orbitControls.enableRotate = false;
 function animate() {

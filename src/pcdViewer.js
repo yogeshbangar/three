@@ -4,12 +4,6 @@ import {
   acceleratedRaycast,
   computeBoundsTree,
   disposeBoundsTree,
-  MeshBVHVisualizer,
-  INTERSECTED,
-  NOT_INTERSECTED,
-  SAH,
-  CENTER,
-  AVERAGE,
 } from "three-mesh-bvh";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -25,7 +19,6 @@ const pointShaderColor = {
         vDisplacement = displacement;
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.);
         gl_PointSize = 50. * (1. / -mvPosition.z);
-       
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
       }`,
   fragment: `
@@ -37,9 +30,9 @@ const pointShaderColor = {
         if(vDisplacement > 10.5){
             gl_FragColor = vec4(1.,1.,1.,1.);
         }
-        
       }`,
 };
+
 export default class PCDViewer {
   points;
   bvhMesh;
@@ -76,8 +69,7 @@ export default class PCDViewer {
       this.displacement = new THREE.BufferAttribute(displacementFloat, 1);
       geometry.setAttribute("displacement", this.displacement);
       this.points = new THREE.Points(geometry, shaderMaterial);
-      // this.points.rotation.set(-Math.PI * 0.5, 0, Math.PI * 0.23);
-      // this.points.position.set(78, 0, 0);
+      this.points.matrixAutoUpdate = false;
       scene.add(this.points);
 
       // BVH Mesh creation

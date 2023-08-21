@@ -61,17 +61,19 @@ export default class PointBrush {
       },
       intersectsTriangle: (triangle) => {
         const distancesToRaySq = ray.distanceSqToPoint(triangle.a);
-        if (distancesToRaySq < localThresholdSq * 100000) {
+        if (distancesToRaySq < localThresholdSq) {
+          const pointPos = pointCloud.geometry.attributes.position;
           for (
             let i = 0;
-            i < pointCloud.geometry.attributes.position.count &&
-            triangle.points.length > 0;
+            i < pointPos.count && triangle.points.length > 0;
             i++
           ) {
-            if (
-              pointCloud.geometry.attributes.position.getX(i) ===
-              triangle.points[0].x
-            ) {
+            const vec = new THREE.Vector3(
+              pointPos.getX(i),
+              pointPos.getY(i),
+              pointPos.getZ(i)
+            );
+            if (vec.distanceTo(triangle.points[0]) < 1) {
               pointCloud.geometry.attributes.displacement.array[i] = 100.0;
               pointCloud.geometry.attributes.displacement.needsUpdate = true;
             }
